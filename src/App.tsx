@@ -25,15 +25,19 @@ const App = () => {
         {name: 'Salad', count: 0},
     ]);
 
+    const [totalPrice, setTotalPrice] = useState(30);
+
 
     const addOne = (name: string) => {
-        setIngredients((prevState) => {
-            return prevState.map(item => {
+        setIngredients(prevState => {
+            return prevState.map((item, index) => {
                     if (name === item.name) {
+                        setTotalPrice(prevState => prevState + INGREDIENTS[index].price);
                         return {
                             ...item,
                             count: item.count + 1
                         }
+
                     }
                     return item;
                 }
@@ -41,12 +45,11 @@ const App = () => {
         })
     };
 
-    console.log(ingredients);
-
     const removeOne = (name: string) => {
         setIngredients((prevState) => {
-            return prevState.map(item => {
+            return prevState.map((item, index) => {
                     if (name === item.name && item.count > 0) {
+                        setTotalPrice(prevState => prevState - INGREDIENTS[index].price);
                         return {
                             ...item,
                             count: item.count - 1
@@ -60,18 +63,21 @@ const App = () => {
 
     const removeAll = (name: string) => {
         setIngredients((prevState) => {
-            return prevState.map(item => {
+            return prevState.map((item, index) => {
                     if (name === item.name) {
+                        setTotalPrice(prevState => prevState - (INGREDIENTS[index].price * item.count));
                         return {
                             ...item,
-                            count: item.count = 0
+                            count: 0
                         }
                     }
-                    return item;
+                return item;
                 }
             )
         })
     };
+
+    console.log(totalPrice);
 
     return (
         <div className="App">
@@ -89,19 +95,20 @@ const App = () => {
                                 }}
                                 src={ingredient.image} alt={ingredient.name}
                             />
-                            <p style={{fontSize: '18px', fontWeight: 'bold'}}>{ingredient.name}</p>
+                            <p style={{
+                                fontSize: '18px',
+                                fontWeight: 'bold'
+                            }}>{ingredient.name}({INGREDIENTS[index].price}сом)</p>
                             <button onClick={() => addOne(ingredient.name)}>+</button>
                             <span>x{ingredients[index].count}</span>
                             <button onClick={() => removeOne(ingredient.name)}>-</button>
                             <button onClick={() => removeAll(ingredient.name)}>del</button>
                         </div>
-
                     )
                 )
                 }
             </div>
             <div className='burger-wrap'>
-
                 <div className="Burger">
                     <h4>Burger</h4>
                     <div className="BreadTop">
@@ -114,6 +121,7 @@ const App = () => {
                     <div className="Salad"></div>
                     <div className="BreadBottom"></div>
                     <p>Total Price:</p>
+                    <p>{totalPrice} сом</p>
                 </div>
             </div>
         </div>
