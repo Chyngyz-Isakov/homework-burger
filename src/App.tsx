@@ -3,7 +3,7 @@ import meatImage from './assets/meat.png';
 import baconImage from './assets/bacon.png';
 import cheeseImage from './assets/cheese.png';
 import saladImage from './assets/salad.png';
-import {Ingredient} from "./type";
+import {Burger, Ingredient} from "./type";
 import './App.css';
 import {nanoid} from "nanoid";
 
@@ -17,18 +17,67 @@ const App = () => {
         {id: nanoid(), name: 'Salad', price: 10, image: saladImage},
     ];
 
-    const [ingredients, setIngredients] = useState([
+
+    const [ingredients, setIngredients] = useState<Burger[]>([
         {name: 'Meat', count: 0},
         {name: 'Bacon', count: 0},
         {name: 'Cheese', count: 0},
         {name: 'Salad', count: 0},
     ]);
 
+
+    const addOne = (name: string) => {
+        setIngredients((prevState) => {
+            return prevState.map(item => {
+                    if (name === item.name) {
+                        return {
+                            ...item,
+                            count: item.count + 1
+                        }
+                    }
+                    return item;
+                }
+            )
+        })
+    };
+
+    console.log(ingredients);
+
+    const removeOne = (name: string) => {
+        setIngredients((prevState) => {
+            return prevState.map(item => {
+                    if (name === item.name && item.count > 0) {
+                        return {
+                            ...item,
+                            count: item.count - 1
+                        }
+                    }
+                    return item;
+                }
+            )
+        })
+    };
+
+    const removeAll = (name: string) => {
+        setIngredients((prevState) => {
+            return prevState.map(item => {
+                    if (name === item.name) {
+                        return {
+                            ...item,
+                            count: item.count = 0
+                        }
+                    }
+                    return item;
+                }
+            )
+        })
+    };
+
     return (
         <div className="App">
             <div className='ingredients-wrap'>
                 <h4>Ingredients</h4>
-                {INGREDIENTS.map((ingredient) => (
+                {INGREDIENTS.map((ingredient, index) => (
                         <div className='ingredients-choose' key={ingredient.id}>
                             <img
                                 style={{
@@ -40,11 +89,11 @@ const App = () => {
                                 }}
                                 src={ingredient.image} alt={ingredient.name}
                             />
-                            <p style={{fontSize:'18px', fontWeight:'bold'}}>{ingredient.name}</p>
-                            <button>+</button>
-                            <span>x0</span>
-                            <button>-</button>
-                            <button>del</button>
+                            <p style={{fontSize: '18px', fontWeight: 'bold'}}>{ingredient.name}</p>
+                            <button onClick={() => addOne(ingredient.name)}>+</button>
+                            <span>x{ingredients[index].count}</span>
+                            <button onClick={() => removeOne(ingredient.name)}>-</button>
+                            <button onClick={() => removeAll(ingredient.name)}>del</button>
                         </div>
 
                     )

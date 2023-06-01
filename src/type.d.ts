@@ -5,3 +5,7 @@ export type Ingredient = {
     image: img;
 }
 
+export type Burger = {
+    name:string;
+    count: number;
+}
