@@ -1,5 +1,7 @@
-export type Ingredients = {
+export type Ingredient = {
+    id: string;
     name: string;
     price: number;
     image: img;
 }
+
