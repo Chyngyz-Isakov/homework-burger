@@ -1,11 +1,11 @@
 import React, {useState} from 'react';
+import {nanoid} from "nanoid";
 import meatImage from './assets/meat.png';
 import baconImage from './assets/bacon.png';
 import cheeseImage from './assets/cheese.png';
 import saladImage from './assets/salad.png';
 import {Burger, Ingredient} from "./type";
 import './App.css';
-import {nanoid} from "nanoid";
 
 
 const App = () => {
@@ -16,7 +16,6 @@ const App = () => {
         {id: nanoid(), name: 'Cheese', price: 50, image: cheeseImage},
         {id: nanoid(), name: 'Salad', price: 10, image: saladImage},
     ];
-
 
     const [ingredients, setIngredients] = useState<Burger[]>([
         {name: 'Meat', count: 0},
@@ -37,12 +36,12 @@ const App = () => {
                             ...item,
                             count: item.count + 1
                         }
-
                     }
                     return item;
                 }
             )
-        })
+        });
+
     };
 
     const removeOne = (name: string) => {
@@ -77,7 +76,7 @@ const App = () => {
         })
     };
 
-    console.log(totalPrice);
+
 
     return (
         <div className="App">
@@ -115,10 +114,22 @@ const App = () => {
                         <div className="Seeds1"></div>
                         <div className="Seeds2"></div>
                     </div>
-                    <div className="Bacon"></div>
-                    <div className="Cheese"></div>
-                    <div className="Meat"></div>
-                    <div className="Salad"></div>
+                    {ingredients.map(item => {
+                        const div: React.ReactNode[] = [];
+                        for (let i = 0; i < item.count; i++){
+                            div.push(<div className={item.name}></div>)
+                        }
+                        return div;
+                        // if (ingredients[index].count){
+                        //     return <div className={item.name}></div>
+                        // }else return ''
+                    })}
+                    {/*{ingredients.map((item,index) => {*/}
+                    {/*    if (ingredients[index].count){*/}
+
+                    {/*        return <div className={item.name}></div>*/}
+                    {/*    }else return ''*/}
+                    {/*})}*/}
                     <div className="BreadBottom"></div>
                     <p>Total Price:</p>
                     <p>{totalPrice} сом</p>
