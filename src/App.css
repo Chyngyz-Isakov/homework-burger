@@ -6,15 +6,16 @@
 }
 
 .ingredients-wrap {
-    border: 1px solid black;
-    padding: 10px;
+    border: 3px solid grey;
+    border-radius: 5px;
+    padding: 20px;
 }
 
 .ingredients-choose {
     border: 1px solid black;
-    width: 500px;
+    max-width: 500px;
     display: flex;
-    margin:  50px auto;
+    margin: 50px auto;
     padding: 10px;
     justify-content: space-between;
     align-items: center;
@@ -22,7 +23,8 @@
 }
 
 .burger-wrap {
-    border: 1px solid black;
+    border: 3px solid grey;
+    border-radius: 5px;
     max-width: 600px;
     display: flex;
     padding: 10px;
@@ -164,4 +166,87 @@
     background-size: cover;
     border: 1px solid black;
 }
+
+.ingredients-img {
+    width: 50px;
+    border: 1px solid black;
+    border-radius: 50%;
+    overflow: hidden;
+    box-shadow: .2em .2em 0.3em #333;
+    margin: 0 20px;
+}
+
+.ingredients-info {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.del-btn {
+    width: 40px;
+    height: 40px;
+    background: url("./assets/trash.png") no-repeat;
+    background-size: contain;
+    border: none;
+    cursor: pointer;
+}
+
+.add-btn {
+    border: 1px solid green;
+    border-radius: 50%;
+    padding: 5px 10px;
+    background: darkseagreen;
+    cursor: pointer;
+    margin: 0 20px;
+}
+
+.remove-btn {
+    border: 1px solid orangered;
+    border-radius: 50%;
+    padding: 5px 10px;
+    background: orange;
+    cursor: pointer;
+    margin: 0 20px;
+}
+
+.count {
+    font-weight: bold;
+    color: green;
+    margin: 0 20px;
+}
+
+.reset-btn {
+    font-size: 16px;
+    font-weight: bold;
+    background-color: initial;
+    background-image: linear-gradient(-180deg, #FF7E31, #E62C03);
+    border-radius: 6px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0 2px 4px;
+    color: black;
+    cursor: pointer;
+    display: inline-block;
+    font-family: Inter, -apple-system, system-ui, Roboto, "Helvetica Neue", Arial, sans-serif;
+    height: 40px;
+    line-height: 40px;
+    outline: 0;
+    overflow: hidden;
+    padding: 0 20px;
+    pointer-events: auto;
+    position: relative;
+    text-align: center;
+    touch-action: manipulation;
+    user-select: none;
+    -webkit-user-select: none;
+    vertical-align: top;
+    white-space: nowrap;
+    width: 100%;
+    z-index: 9;
+    border: 0;
+    transition: box-shadow .2s;
+}
+
+.reset-btn:hover {
+    box-shadow: rgba(253, 76, 0, 0.5) 0 3px 8px;
+}
+
+
 

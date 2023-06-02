@@ -76,7 +76,21 @@ const App = () => {
         })
     };
 
-
+    const resetAll = () => {
+        setIngredients((prevState) => {
+            return prevState.map((item, index) => {
+                    if (item.name) {
+                        setTotalPrice(prevState => prevState - (INGREDIENTS[index].price * item.count));
+                        return {
+                            ...item,
+                            count: 0
+                        }
+                    }
+                    return item;
+                }
+            )
+        })
+    };
 
     return (
         <div className="App">
@@ -84,28 +98,19 @@ const App = () => {
                 <h4>Ingredients</h4>
                 {INGREDIENTS.map((ingredient, index) => (
                         <div className='ingredients-choose' key={ingredient.id}>
-                            <img
-                                style={{
-                                    width: '50px',
-                                    border: '1px solid black',
-                                    borderRadius: '50%',
-                                    overflow: 'hidden',
-                                    boxShadow: '.2em .2em 0.3em #333',
-                                }}
+                            <img className='ingredients-img'
                                 src={ingredient.image} alt={ingredient.name}
                             />
-                            <p style={{
-                                fontSize: '18px',
-                                fontWeight: 'bold'
-                            }}>{ingredient.name}({INGREDIENTS[index].price}сом)</p>
-                            <button onClick={() => addOne(ingredient.name)}>+</button>
-                            <span>x{ingredients[index].count}</span>
-                            <button onClick={() => removeOne(ingredient.name)}>-</button>
-                            <button onClick={() => removeAll(ingredient.name)}>del</button>
+                            <p className='ingredients-info'>{ingredient.name}({INGREDIENTS[index].price}сом)</p>
+                            <button onClick={() => addOne(ingredient.name)} className='add-btn'>+</button>
+                            <span className='count'>x{ingredients[index].count}</span>
+                            <button onClick={() => removeOne(ingredient.name)} className='remove-btn'>-</button>
+                            <button onClick={() => removeAll(ingredient.name)} className='del-btn'></button>
                         </div>
                     )
                 )
                 }
+                <button onClick={resetAll} className='reset-btn'>Reset All</button>
             </div>
             <div className='burger-wrap'>
                 <div className="Burger">
@@ -117,19 +122,10 @@ const App = () => {
                     {ingredients.map(item => {
                         const div: React.ReactNode[] = [];
                         for (let i = 0; i < item.count; i++){
-                            div.push(<div className={item.name}></div>)
+                            div.push(<div className={item.name} key={nanoid()}></div>)
                         }
                         return div;
-                        // if (ingredients[index].count){
-                        //     return <div className={item.name}></div>
-                        // }else return ''
                     })}
-                    {/*{ingredients.map((item,index) => {*/}
-                    {/*    if (ingredients[index].count){*/}
-
-                    {/*        return <div className={item.name}></div>*/}
-                    {/*    }else return ''*/}
-                    {/*})}*/}
                     <div className="BreadBottom"></div>
                     <p>Total Price:</p>
                     <p>{totalPrice} сом</p>
