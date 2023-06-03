@@ -6,9 +6,18 @@
 }
 
 .ingredients-wrap {
+    position: relative;
     border: 3px solid grey;
     border-radius: 5px;
     padding: 20px;
+}
+
+.ingredients-title {
+    position: absolute;
+    top: -42px;
+    left: 40px;
+    padding: 10px;
+    background: white;
 }
 
 .ingredients-choose {

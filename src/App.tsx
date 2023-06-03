@@ -113,7 +113,7 @@ const App = () => {
     return (
         <div className="App">
             <div className='ingredients-wrap'>
-                <h4>Ingredients</h4>
+                <h4 className='ingredients-title'>Ingredients</h4>
                 {showIngredients}
                 <ResetButton resetAll={resetAll}/>
             </div>
