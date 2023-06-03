@@ -1,18 +1,17 @@
 import React from 'react';
 
-
 interface IProps {
     name: string;
-    image:string;
+    image: string;
     count: number;
-    price:number;
-    key:string;
-    addOne: (name:string) => void;
-    removeOne: (name:string) => void;
-    removeAll: (name:string) => void;
+    price: number;
+    key: string;
+    addOne: (name: string) => void;
+    removeOne: (name: string) => void;
+    removeAll: (name: string) => void;
 }
 
-const IngredientPart:React.FC<IProps> = props => {
+const IngredientPart: React.FC<IProps> = props => {
     return (
         <div className='ingredients-choose'>
             <img className='ingredients-img'

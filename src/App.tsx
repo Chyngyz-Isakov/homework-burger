@@ -4,7 +4,10 @@ import meatImage from './assets/meat.png';
 import baconImage from './assets/bacon.png';
 import cheeseImage from './assets/cheese.png';
 import saladImage from './assets/salad.png';
-import {Burger, Ingredient} from "./type";
+import {BurgerType, Ingredient} from "./type";
+import ResetButton from "./components/ResetButton/ResetButton";
+import Burger from "./components/Burger/Burger";
+import IngredientPart from "./components/IngredientPart/IngredientPart";
 import './App.css';
 
 
@@ -17,7 +20,7 @@ const App = () => {
         {id: nanoid(), name: 'Salad', price: 10, image: saladImage},
     ];
 
-    const [ingredients, setIngredients] = useState<Burger[]>([
+    const [ingredients, setIngredients] = useState<BurgerType[]>([
         {name: 'Meat', count: 0},
         {name: 'Bacon', count: 0},
         {name: 'Cheese', count: 0},
@@ -70,7 +73,7 @@ const App = () => {
                             count: 0
                         }
                     }
-                return item;
+                    return item;
                 }
             )
         })
@@ -92,44 +95,32 @@ const App = () => {
         })
     };
 
+    const showIngredients = INGREDIENTS.map((ingredient, index) => {
+        return (
+            <IngredientPart name={ingredient.name}
+                            image={ingredient.image}
+                            count={ingredients[index].count}
+                            price={ingredient.price}
+                            key={ingredient.id}
+                            addOne={addOne}
+                            removeOne={removeOne}
+                            removeAll={removeAll}
+            />
+        )
+    });
+
+
     return (
         <div className="App">
             <div className='ingredients-wrap'>
                 <h4>Ingredients</h4>
-                {INGREDIENTS.map((ingredient, index) => (
-                        <div className='ingredients-choose' key={ingredient.id}>
-                            <img className='ingredients-img'
-                                src={ingredient.image} alt={ingredient.name}
-                            />
-                            <p className='ingredients-info'>{ingredient.name}({INGREDIENTS[index].price}сом)</p>
-                            <button onClick={() => addOne(ingredient.name)} className='add-btn'>+</button>
-                            <span className='count'>x{ingredients[index].count}</span>
-                            <button onClick={() => removeOne(ingredient.name)} className='remove-btn'>-</button>
-                            <button onClick={() => removeAll(ingredient.name)} className='del-btn'></button>
-                        </div>
-                    )
-                )
-                }
-                <button onClick={resetAll} className='reset-btn'>Reset All</button>
+                {showIngredients}
+                <ResetButton resetAll={resetAll}/>
             </div>
+
             <div className='burger-wrap'>
-                <div className="Burger">
-                    <h4>Burger</h4>
-                    <div className="BreadTop">
-                        <div className="Seeds1"></div>
-                        <div className="Seeds2"></div>
-                    </div>
-                    {ingredients.map(item => {
-                        const div: React.ReactNode[] = [];
-                        for (let i = 0; i < item.count; i++){
-                            div.push(<div className={item.name} key={nanoid()}></div>)
-                        }
-                        return div;
-                    })}
-                    <div className="BreadBottom"></div>
-                    <p>Total Price:</p>
-                    <p>{totalPrice} сом</p>
-                </div>
+                <h4 className='burger-title'>Burger</h4>
+                <Burger ingredients={ingredients} totalPrice={totalPrice}/>
             </div>
         </div>
     )
